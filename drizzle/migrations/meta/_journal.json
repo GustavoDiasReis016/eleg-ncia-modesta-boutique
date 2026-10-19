@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792431131408,
+      "tag": "0000_store_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792431277629,
+      "tag": "0001_order_total_trigger",
+      "breakpoints": true
+    }
+  ]
+}
