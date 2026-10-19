@@ -39,7 +39,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const i = prev.findIndex((p) => p.productId === item.productId && p.size === item.size);
       if (i >= 0) {
         const copy = [...prev];
-        copy[i] = { ...copy[i], quantity: copy[i].quantity + item.quantity };
+        const cur = copy[i]!;
+        copy[i] = { ...cur, quantity: cur.quantity + item.quantity };
         return copy;
       }
       return [...prev, item];
