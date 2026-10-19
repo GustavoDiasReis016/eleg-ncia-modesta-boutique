@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ComponentProps } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
@@ -108,7 +108,7 @@ function Register() {
       </div>
     );
 
-  const field = (k: keyof typeof empty, label: string, props: React.ComponentProps<typeof Input> = {}) => (
+  const field = (k: keyof typeof empty, label: string, props: ComponentProps<typeof Input> = {}) => (
     <div className="space-y-1">
       <Label>{label}</Label>
       <Input value={f[k]} onChange={(e) => set(k, e.target.value)} {...props} />
