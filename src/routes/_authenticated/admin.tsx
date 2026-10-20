@@ -99,16 +99,16 @@ function Products() {
   const [file, setFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
 
-  const save = async (e: React.FormEvent): Promise<unknown> => {
+  const save = async (e: React.FormEvent) => {
     e.preventDefault();
     const price = Number(f.price.replace(",", "."));
-    if (!f.name.trim() || !(price >= 0)) return toast.error("Preencha nome e preço");
+    if (!f.name.trim() || !(price >= 0)) { toast.error("Preencha nome e preço"); return; }
     setBusy(true);
     let image_url: string | null = null;
     if (file) {
       const path = `${crypto.randomUUID()}-${file.name.replace(/[^\w.]/g, "")}`;
       const up = await supabase.storage.from("products").upload(path, file);
-      if (up.error) { setBusy(false); return toast.error(up.error.message); }
+      if (up.error) { setBusy(false); toast.error(up.error.message); return; }
       const s = await supabase.storage.from("products").createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
       image_url = s.data?.signedUrl ?? null;
     }
@@ -117,7 +117,7 @@ function Products() {
       sizes: f.sizes.split(",").map((s) => s.trim()).filter(Boolean), image_url,
     });
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Produto publicado na loja!");
     setF({ ...f, name: "", description: "", price: "" });
     setFile(null);
