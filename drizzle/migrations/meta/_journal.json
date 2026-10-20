@@ -22,6 +22,13 @@
       "when": 1792511721401,
       "tag": "0002_store_owner_admin",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792514017871,
+      "tag": "0003_transfer_store_owner_admin",
+      "breakpoints": true
     }
   ]
 }
