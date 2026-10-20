@@ -53,19 +53,19 @@ CREATE POLICY products_admin_insert
 ON public.products
 FOR INSERT
 TO authenticated
-WITH CHECK (public.has_role('admin'::public.app_role, auth.uid()));
+WITH CHECK (public.has_role(auth.uid(), 'admin'::public.app_role));
 
 DROP POLICY IF EXISTS products_admin_update ON public.products;
 CREATE POLICY products_admin_update
 ON public.products
 FOR UPDATE
 TO authenticated
-USING (public.has_role('admin'::public.app_role, auth.uid()))
-WITH CHECK (public.has_role('admin'::public.app_role, auth.uid()));
+USING (public.has_role(auth.uid(), 'admin'::public.app_role))
+WITH CHECK (public.has_role(auth.uid(), 'admin'::public.app_role));
 
 DROP POLICY IF EXISTS products_admin_delete ON public.products;
 CREATE POLICY products_admin_delete
 ON public.products
 FOR DELETE
 TO authenticated
-USING (public.has_role('admin'::public.app_role, auth.uid()));
+USING (public.has_role(auth.uid(), 'admin'::public.app_role));
