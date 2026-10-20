@@ -99,7 +99,7 @@ function Products() {
   const [file, setFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
 
-  const save = async (e: React.FormEvent) => {
+  const save = async (e: React.FormEvent): Promise<unknown> => {
     e.preventDefault();
     const price = Number(f.price.replace(",", "."));
     if (!f.name.trim() || !(price >= 0)) return toast.error("Preencha nome e preço");
