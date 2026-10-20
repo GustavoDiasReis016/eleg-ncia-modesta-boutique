@@ -79,6 +79,20 @@ function Login() {
         <Input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
       </div>
       <Button className="w-full rounded-full" disabled={busy}>{busy ? "Entrando…" : "Entrar"}</Button>
+      <button
+        type="button"
+        className="w-full text-center text-sm text-primary underline"
+        onClick={async () => {
+          if (!email.trim()) return void toast.error("Digite seu e-mail acima");
+          const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+            redirectTo: `${window.location.origin}/reset-password`,
+          });
+          if (error) toast.error(error.message);
+          else toast.success("Enviamos um link para redefinir sua senha.");
+        }}
+      >
+        Esqueci minha senha
+      </button>
     </form>
   );
 }
@@ -131,13 +145,14 @@ function Register() {
         setErrors({});
         setBusy(true);
         const { password, email, ...meta } = parsed.data;
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: { emailRedirectTo: window.location.origin, data: { ...meta, state: meta.state.toUpperCase() } },
         });
         setBusy(false);
         if (error) toast.error(error.message);
+        else if (data.session) toast.success("Conta criada! Bem-vinda!");
         else setDone(true);
       }}
     >
